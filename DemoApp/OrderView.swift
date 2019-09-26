@@ -20,7 +20,7 @@ struct OrderView: View {
 								   Spacer()
 								   Text("$\(item.price)")
 							   }
-						   }
+						   }.onDelete(perform: deleteItems)
 					   }
 
 					   Section {
@@ -30,9 +30,15 @@ struct OrderView: View {
 					   }
 				   }
 				   .navigationBarTitle("Order")
-				   .listStyle(GroupedListStyle())
+				.listStyle(GroupedListStyle())
+				.navigationBarItems(trailing: EditButton())
+				.disabled(order.items.isEmpty)
+			
 			   }
 		   }
+	func deleteItems(at offsets: IndexSet) {
+		order.items.remove(atOffsets: offsets)
+	}
 }
 
 struct OrderView_Previews: PreviewProvider {
